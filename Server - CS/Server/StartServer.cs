@@ -41,12 +41,16 @@ namespace Server
                 Ports = { new ServerPort("localhost", 5555, ServerCredentials.Insecure) }
             };
             server.Start();
+            while (true)
+            {
+                var line = Console.ReadLine();
+                if (line != null && line.ToLower().Equals("exit"))
+                {
+                    server.ShutdownAsync().Wait();
+                    break;
+                }
+            }
 
-            Console.WriteLine("Server listening on port " + 5555);
-            Console.WriteLine("Press any key to stop the server...");
-            while (true) ;
-
-            server.ShutdownAsync().Wait();
         }
     }
 }
